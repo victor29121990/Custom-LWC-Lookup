@@ -1,0 +1,11 @@
+<template>
+  <c-custom-lookup-child
+    object-name="Account"
+    where-clause="AccountNumber!=null"
+    main-field-to-show="Name"
+    addn-field-to-show="AccountNumber"
+    icon-name="standard:account"
+    number-of-results="5"
+    onlookupvalueselected={handleLookupRecordSelection}
+  ></c-custom-lookup-child>
+</template>
