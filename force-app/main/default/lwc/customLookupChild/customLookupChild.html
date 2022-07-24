@@ -1,0 +1,170 @@
+<template>
+  <template if:true={invalidSetup}>
+    <span style="color:red;">The set up is not complete, please provide correct inputs</span>
+  </template>
+  <template if:false={invalidSetup}>
+    <div class="slds-form-element">
+      <label class="slds-form-element__label" for="combobox-id-1"
+        >Relate To</label
+      >
+      <div class="slds-form-element__control">
+        <div class="slds-combobox_container">
+          <div
+            class={searchResultDivClass}
+            aria-expanded={isResultsAvailable}
+            aria-haspopup="listbox"
+            role="combobox"
+          >
+            <div class={inputDivClass} role="none">
+              <template if:true={optionSelected}>
+                <span
+                  class="
+                    slds-icon_container
+                    slds-icon-standard-account
+                    slds-combobox__input-entity-icon
+                  "
+                  title={objectName}
+                >
+                  <lightning-icon
+                    icon-name={iconName}
+                    alternative-text={objectName}
+                    title={objectName}
+                    size="small"
+                  ></lightning-icon>
+                </span>
+                <input
+                  type="text"
+                  class="
+                    slds-input
+                    slds-combobox__input slds-combobox__input-value
+                  "
+                  id="combobox-id-5"
+                  aria-controls="listbox-id-5"
+                  autocomplete="off"
+                  role="textbox"
+                  placeholder="Select an Option…"
+                  readonly=""
+                  value={selectedName}
+                />
+                <button
+                  class="
+                    slds-button slds-button_icon
+                    slds-input__icon slds-input__icon_right
+                  "
+                  title="Remove selected option"
+                  onclick={removeSelection}
+                >
+                  <lightning-icon
+                    icon-name="utility:close"
+                    alternative-text="Remove selected option"
+                    title="Remove selected option"
+                    size="x-small"
+                  ></lightning-icon>
+                </button>
+              </template>
+              <template if:false={optionSelected}>
+                <input
+                  type="text"
+                  class="slds-input slds-combobox__input"
+                  id="combobox-id-1"
+                  aria-autocomplete="list"
+                  aria-controls="listbox-id-1"
+                  autocomplete="off"
+                  role="textbox"
+                  placeholder="Search..."
+                  onclick={handleClickOnInput}
+                  onkeyup={handleSearchTermChange}
+                />
+                <span
+                  class="
+                    slds-icon_container
+                    slds-icon-utility-search
+                    slds-input__icon slds-input__icon_right
+                  "
+                >
+                  <lightning-icon
+                    icon-name="utility:search"
+                    alternative-text="search"
+                    title="search"
+                    size="x-small"
+                  ></lightning-icon>
+                </span>
+              </template>
+            </div>
+            <template if:true={showResults}>
+              <div
+                id="listbox-id-1"
+                class="
+                  slds-dropdown
+                  slds-dropdown_length-with-icon-7
+                  slds-dropdown_fluid
+                "
+                role="listbox"
+              >
+                <ul
+                  class="slds-listbox slds-listbox_vertical"
+                  role="presentation"
+                >
+                  <template for:each={resultsToShow} for:item="record">
+                    <li
+                      key={record.Id}
+                      role="presentation"
+                      class="slds-listbox__item"
+                      data-id={record.Id}
+                      data-var={record.mainFieldToShow}
+                      onclick={handleSelection}
+                    >
+                      <div
+                        class="
+                          slds-media
+                          slds-listbox__option
+                          slds-listbox__option_entity
+                          slds-listbox__option_has-meta
+                        "
+                        role="option"
+                      >
+                        <span
+                          class="slds-media__figure slds-listbox__option-icon"
+                        >
+                          <span
+                            class="
+                              slds-icon_container
+                              slds-icon-standard-account
+                            "
+                          >
+                            <lightning-icon
+                              icon-name={iconName}
+                              alternative-text={objectName}
+                              title={objectName}
+                              size="small"
+                            ></lightning-icon>
+                          </span>
+                        </span>
+                        <span class="slds-media__body">
+                          <span
+                            class="
+                              slds-listbox__option-text
+                              slds-listbox__option-text_entity
+                            "
+                            >{record.mainFieldToShow}</span
+                          >
+                          <span
+                            class="
+                              slds-listbox__option-meta
+                              slds-listbox__option-meta_entity
+                            "
+                            >{record.addnFieldToShow}</span
+                          >
+                        </span>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>
